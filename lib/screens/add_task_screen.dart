@@ -1,22 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class AddTaskScreen extends StatefulWidget {
+class AddTaskScreen extends StatelessWidget {
   final Function addTask;
 
   AddTaskScreen({this.addTask});
 
   @override
-  _AddTaskScreenState createState() => _AddTaskScreenState();
-}
-
-class _AddTaskScreenState extends State<AddTaskScreen> {
-  String newTaskTitle;
-
-  TextEditingController textController = TextEditingController();
-
-  @override
   Widget build(BuildContext context) {
+    String newTaskTitle;
+    TextEditingController textController = TextEditingController();
+
     return Container(
       margin: EdgeInsets.only(
         left: 20,
@@ -49,9 +43,9 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               vertical: 10,
             ),
             child: TextField(
-              onChanged: (newValue) => setState(() {
+              onChanged: (newValue) {
                 newTaskTitle = newValue;
-              }),
+              },
               controller: textController,
               style: TextStyle(fontSize: 20),
               autofocus: true,
@@ -71,7 +65,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
           ),
           FlatButton(
             onPressed: () {
-              widget.addTask(newTaskTitle);
+              addTask(newTaskTitle);
               textController.clear();
               Navigator.pop(context);
             },
