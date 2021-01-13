@@ -4,12 +4,13 @@ import 'package:flutter/material.dart';
 class AddTaskScreen extends StatelessWidget {
   final Function addTask;
 
+  final TextEditingController textController = TextEditingController();
+
   AddTaskScreen({this.addTask});
 
   @override
   Widget build(BuildContext context) {
-    String newTaskTitle;
-    TextEditingController textController = TextEditingController();
+    String _newTaskTitle;
 
     return Container(
       margin: EdgeInsets.only(
@@ -44,7 +45,7 @@ class AddTaskScreen extends StatelessWidget {
             ),
             child: TextField(
               onChanged: (newValue) {
-                newTaskTitle = newValue;
+                _newTaskTitle = newValue;
               },
               controller: textController,
               style: TextStyle(fontSize: 20),
@@ -65,7 +66,7 @@ class AddTaskScreen extends StatelessWidget {
           ),
           FlatButton(
             onPressed: () {
-              addTask(newTaskTitle);
+              addTask(_newTaskTitle);
               textController.clear();
               Navigator.pop(context);
             },
