@@ -3,23 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:todoey_flutter/widgets/task_item.dart';
 import 'package:todoey_flutter/models/task.dart';
 
-class TaskItems extends StatefulWidget {
-  @override
-  _TaskItemsState createState() => _TaskItemsState();
-}
+class TaskItems extends StatelessWidget {
+  final List<Task> tasks;
+  final Function toggleTask;
 
-class _TaskItemsState extends State<TaskItems> {
-  List<Task> tasks = [
-    Task(title: 'List Item 01', isDone: false),
-    Task(title: 'List Item 02', isDone: true),
-    Task(title: 'List Item 03', isDone: false),
-  ];
-
-  void toggleCheckbox(int i) {
-    setState(() {
-      tasks[i].toggle();
-    });
-  }
+  TaskItems({this.tasks, this.toggleTask});
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +16,7 @@ class _TaskItemsState extends State<TaskItems> {
         return TaskItem(
           text: tasks[i].title,
           isChecked: tasks[i].isDone,
-          changeState: () => setState(() {
-            tasks[i].toggle();
-          }),
+          changeState: () => toggleTask(i),
         );
       },
       itemCount: tasks.length,
