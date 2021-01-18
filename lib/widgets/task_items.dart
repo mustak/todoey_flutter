@@ -10,9 +10,10 @@ class TaskItems extends StatelessWidget {
     return Consumer<TasksStore>(
       builder: (context, tasksStore, child) => ListView.builder(
         itemBuilder: (context, i) {
+          final task = tasksStore.tasks[i];
           return TaskItem(
-            text: tasksStore.tasks[i].title,
-            isChecked: tasksStore.tasks[i].isDone,
+            text: task.title,
+            isChecked: task.isDone,
             changeState: () => tasksStore.toggleCheckbox(i),
           );
         },
