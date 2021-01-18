@@ -28,4 +28,9 @@ class TasksStore extends ChangeNotifier {
     _tasks.add(newTask);
     notifyListeners();
   }
+
+  void deleteTask(int i) {
+    _tasks.removeAt(i);
+    notifyListeners();
+  }
 }

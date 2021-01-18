@@ -15,6 +15,7 @@ class TaskItems extends StatelessWidget {
             text: task.title,
             isChecked: task.isDone,
             changeState: () => tasksStore.toggleCheckbox(i),
+            deleteTask: () => tasksStore.deleteTask(i),
           );
         },
         itemCount: tasksStore.taskCount,
