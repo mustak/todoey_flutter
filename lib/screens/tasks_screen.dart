@@ -1,9 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:todoey_flutter/widgets/task_items.dart';
 import 'package:todoey_flutter/screens/add_task_screen.dart';
-import 'package:todoey_flutter/models/task.dart';
+import 'package:todoey_flutter/models/tasks_store.dart';
 
 class TasksScreen extends StatefulWidget {
   @override
@@ -11,25 +11,6 @@ class TasksScreen extends StatefulWidget {
 }
 
 class _TasksScreenState extends State<TasksScreen> {
-  List<Task> tasks = [
-    Task(title: 'List Item 01', isDone: false),
-    Task(title: 'List Item 02', isDone: true),
-    Task(title: 'List Item 03', isDone: false),
-  ];
-  void toggleCheckbox(int i) {
-    setState(() {
-      tasks[i].toggle();
-    });
-  }
-
-  void addTask(String title) {
-    Task newTask = Task(title: title);
-
-    setState(() {
-      tasks.add(newTask);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,9 +23,7 @@ class _TasksScreenState extends State<TasksScreen> {
                 child: Container(
               padding: EdgeInsets.only(
                   bottom: MediaQuery.of(context).viewInsets.bottom),
-              child: AddTaskScreen(
-                addTask: addTask,
-              ),
+              child: AddTaskScreen(),
             )),
             backgroundColor: Colors.transparent,
             isScrollControlled: true,
@@ -90,7 +69,7 @@ class _TasksScreenState extends State<TasksScreen> {
                   ),
                 ),
                 Text(
-                  '${tasks.length} Tasks',
+                  '${Provider.of<TasksStore>(context).taskCount} Tasks',
                   style: TextStyle(fontSize: 18, color: Colors.white),
                 ),
               ],
@@ -104,10 +83,7 @@ class _TasksScreenState extends State<TasksScreen> {
                     topRight: Radius.circular(20)),
                 color: Colors.white,
               ),
-              child: TaskItems(
-                tasks: tasks,
-                toggleTask: toggleCheckbox,
-              ),
+              child: TaskItems(),
             ),
           ),
         ],
